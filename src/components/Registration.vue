@@ -10,12 +10,23 @@
 </template>
 
 <script>
+
+    import {store} from "../store";
+
     export default {
-        props: ['users'],
+        computed:{
+            users(){
+                return store.state.users.filter((user) => {
+                    return !user.registered;
+                });
+            }
+        },
         methods: {
             registerUser(user) {
-                this.$emit('userRegistered', user);
+                const date = new Date;
+                store.state.registrations.push({userId: user.id, name: user.name, date: date.getMonth() + '/' + date.getDay()});
                 user.registered = true;
+
             }
         }
     }

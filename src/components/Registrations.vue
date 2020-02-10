@@ -14,16 +14,25 @@
 </template>
 
 <script>
+    import {store} from "../store";
+
     export default {
-        props: ['registrations'],
         methods: {
             unregister(registration) {
-                this.$emit('userUnregistered', registration);
+                const user = store.state.users.find(user => {
+                    return user.id == registration.userId;
+                });
+                user.registered = false;
+                store.state.registrations.splice(store.state.registrations.indexOf(registration), 1);
+
             }
         },
         computed: {
+            registrations() {
+                return store.state.registrations;
+            },
             total() {
-                return this.registrations.length;
+                return store.state.registrations.length;
             }
         }
     }
