@@ -11,3 +11,14 @@ export const store = Vue.observable({
         ]
     }
 });
+
+export const mutations = {
+    unregister(registration) {
+        const user = store.state.users.find(user => {
+            return user.id == registration.userId;
+        });
+        user.registered = false;
+        store.state.registrations.splice(store.state.registrations.indexOf(registration), 1);
+
+    }
+}

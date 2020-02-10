@@ -14,18 +14,11 @@
 </template>
 
 <script>
-    import {store} from "../store";
+    import {mutations, store} from "../store";
 
     export default {
         methods: {
-            unregister(registration) {
-                const user = store.state.users.find(user => {
-                    return user.id == registration.userId;
-                });
-                user.registered = false;
-                store.state.registrations.splice(store.state.registrations.indexOf(registration), 1);
-
-            }
+            unregister: mutations.unregister
         },
         computed: {
             registrations() {
